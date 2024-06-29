@@ -1,0 +1,109 @@
+[
+    {
+        "type": "section",
+        "id": "Sample_Section",
+        "sectionName": "Sample Section",
+        "content": [
+
+            {
+                "type": "heading1",
+                "id": "sampleHead1",
+                "value": "Sample Heading"
+            },
+            {
+                "type": "heading2",
+                "id": "sampleHead2",
+                "value": "Sample Heading"
+            },
+            {
+                "type": "entry",
+                "id": "exampleEntry",
+                "title": "Title name",
+                "description": "Short description",
+                "style": [],
+                "linkType": "",
+                "url": "",
+                "action": ""
+            },
+
+            {
+                "type": "section",
+                "id": "nestedSection",
+                "sectionName": "Subsection",
+                "content": [
+                    {
+                        "type": "heading1",
+                        "id": "nestedHead1",
+                        "value": "Sample Nested Heading"
+                    },
+                    {
+                        "type": "entry",
+                        "id": "nestedEntry1",
+                        "title": "Example Entry 12345",
+                        "description": "Short description",
+                        "style": [],
+                        "linkType": "",
+                        "url": "",
+                        "action": ""
+                    },
+
+                    {
+                        "type": "section",
+                        "id": "nestSection3",
+                        "sectionName": "Sub-subsection",
+                        "content": [
+                            {
+                                "type": "heading2",
+                                "id": "nestedNestedHeading",
+                                "value": "Nested-Nested heading"
+                            }
+
+                        ]
+                    }
+
+                ]
+            }
+
+        ]
+    },
+
+    {
+        "type": "section",
+        "id": "Sample_Section_02",
+        "sectionName": "Sample Section 2",
+        "content": [
+            {
+                "type": "heading1",
+                "id": "section2head1",
+                "value": "Sample Heading"
+            },
+            {
+                "type": "section",
+                "id": "section2sub",
+                "sectionName": "Sample subsection 2",
+                "content": [
+                    {
+                        "type": "heading1",
+                        "id": "section2sub_head1",
+                        "value": "Sample Heading"
+                    }
+                ]
+            },
+            {
+                "type": "heading2",
+                "id": "section2head2",
+                "value": "Sample Heading"
+            },
+            {
+                "type": "entry",
+                "id": "section2heading",
+                "title": "Title name",
+                "description": "Short description",
+                "style": [],
+                "linkType": "",
+                "url": "",
+                "action": ""
+            }
+        ]
+    }
+]
