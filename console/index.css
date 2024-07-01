@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    margin: 0;
+    background-color: #808080;
+}
+
+.titleBar {
+    background-color: white;
+    width: 100%;
+    position: fixed;
+    border-bottom: 4px solid #b7a57a;
+    z-index: 10000;
+}
+
+.titleBar h1 {
+    font-weight: bold;
+    font-size: 24px;
+    margin-left: 16px;
+}
+
+.content {
+    position: relative;
+    display: block;
+    padding: 2px;
+    width: 80%;
+    margin: 0 auto;
+    top: 80px;
+    background-color: #f4f4f4;
+}

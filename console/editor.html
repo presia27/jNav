@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<!--
+
+    ========}   jNav Edit Console   {========
+        jNav Edit Console 0.0.1
+        COPYRIGHT (C) 2024 PRESTON SIA (PRESIA27)
+        THIS SOFTWARE IS LICENSED UNDER THE APACHE LICENSE, VERSION 2.0
+        [https://www.apache.org/licenses/LICENSE-2.0]
+
+        This project utilizes:
+            jQuery 3.5.1, licensed under the MIT license
+            and Copyright JS Foundation and other contributors.
+            [https://jquery.com/]
+            [https://jquery.org/license]
+
+            jQuery UI v 1.11.4, under the MIT license and
+            Copyright 2015 jQuery Foundation and other contributors
+            [http://jqueryui.com]
+
+        Author: Preston Sia
+        Created: 2024-06-29
+        Last Updated: 2024-06-30
+
+-->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="favicon.ico" rel="icon" type="image/x-icon">
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <link rel="stylesheet" type="text/css" href="editor.css">
+
+        <!-- Disable page cache -->
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+
+        <title>Edit Index - jNav Edit Console</title>
+    </head>
+    <body>
+        <!-- Title Bar -->
+        <section>
+            <div class="titleBar">
+                <h1>jNav Console</h1>
+            </div>
+        </section>
+
+        <!-- Content -->
+        <section>
+            <div class="content">
+                <h2>Edit Index</h2>
+
+                <div id="controls">
+                    <ul>
+                        <li><button type="button" id="addNewEntry">Add new entry</button></li>
+                        <li><button type="button" id="addNewHeading">Add new heading</button></li>
+                        <li><button type="button" id="addNewSection">Add new section</button></li>
+                        <li><button type="button" id="convertEmbedCode">Convert Embed Code</button></li>
+                        <li><button type="button" id="returnHome">Return Home</button></li>
+                        <li><button type="button" id="generateFile">Generate File</button></li>
+                    </ul>
+                </div>
+
+                <!-- Navigation Area -->
+                <div class="flexArea">
+                    <div id="navTree1" class="navTree">
+                        <!--
+                        <div id="" class="navSectionWrap">
+                            <div class="navSection">
+                                <span class="identText">Sample_Section</span>
+                                <h2 id="" class="heading1">Test</h2>
+                                
+                                <a id="" class="link" title="" href="javascript:void(0)">
+                                    <div class="linkText">Test</div>
+                                </a>
+                            </div>
+
+                            <div id="" class="navSectionWrap">
+                                <div class="navSection">
+                                    <span class="identText">Sample_Subsection</span>
+                                    
+                                    <h3 id="" class="heading2">Test 2</h3>
+                                    <a id="" class="link" title="" href="javascript:void(0)">
+                                        <div class="linkText">Test 2</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+
+                    <!-- Entry editor -->
+                    <div id="entryEditor1" class="entryEditor">
+                        <div id="banner" style="background-color: white;">SELECT A TASK OR INDEX ENTRY TO BEGIN</div>
+                        <div id="actionBanner" style="display: none;"></div>
+
+                        <form method="POST">
+
+                            <table id="entryTable" style="display: none;">
+                                <tbody>
+                                    <tr>
+                                        <td class="tbLeft">Section</td>
+                                        <td>
+                                            <input type="text" id="entrySection" disabled="disabled" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbLeft">ID</td>
+                                        <td><input type="text" id="entryId" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbLeft">Title</td>
+                                        <td><input type="text" id="entryTitle" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbLeft">Description</td>
+                                        <td><input type="text" id="entryDescription" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbLeft">Style</td>
+                                        <td>
+                                            <input type="checkbox" id="ckBold" class="widthExclude">
+                                            <label for="ckBold">Bold</label>
+
+                                            <input type="checkbox" id="ckItal" class="widthExclude">
+                                            <label for="ckItal">Italic</label>
+
+                                            <input type="checkbox" id="ckUnder" class="widthExclude">
+                                            <label for="ckUnder">Underline</label>
+
+                                            <input type="checkbox" id="ckIndent" class="widthExclude">
+                                            <label for="ckIndent">Indent</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbLeft">Type of link</td>
+                                        <td>
+                                            <select name="entryType" id="entryType">
+                                                <option value="notSet">&gt;&gt;Select a link type&lt;&lt;</option>
+                                                <option value="hyperlink">Webpage Link</option>
+                                                <option value="pdf">PDF</option>
+                                                <option value="mso">Microsoft Office</option>
+                                                <option value="html">HTML Code</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbLeft">URL</td>
+                                        <td><input type="text" id="entryUrl" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbLeft">Action</td>
+                                        <td>
+                                            <select name="entryAction" id="entryAction">
+                                                <option value="notSet">&gt;&gt;Select an action&lt;&lt;</option>
+                                                <option value="frame">Frame</option>
+                                                <option value="currentWindow">Current Window</option>
+                                                <option value="newTab">Open in a New Tab</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbLeft"><button type="button" id="btClearEntry" class="btClear" title="Clear all form fields">Clear Form</button></td>
+                                        <td>
+                                            <button type="button" id="btDeleteEntry" class="btDelete" title="Delete this item">DELETE</button>
+                                            <button type="button" id="btResetEntry" class="btReset" title="Reset changes made to this form">Reset</button>
+                                            <button type="button" id="btSaveEntry" class="btSave" title="Clear all form fields">Commit Changes</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table id="headingTable" style="display: none;">
+                                <tbody>
+                                    <tr>
+                                        <td class="tbLeft">Section</td>
+                                        <td>
+                                            <input type="text" id="headingSection" disabled="disabled" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbLeft">ID</td>
+                                        <td><input type="text" id="headingId" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbLeft">Heading Value</td>
+                                        <td><input type="text" id="headingValue" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbLeft">Style</td>
+                                        <td>
+                                            <select name="headingStyle" id="headingStyle">
+                                                <option value="notSet">&gt;&gt;Select a style&lt;&lt;</option>
+                                                <option value="heading1">Heading 1</option>
+                                                <option value="heading2">Heading 2</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbLeft"><button type="button" id="btClearHeading" class="btClear" title="Clear all form fields">Clear Form</button></td>
+                                        <td>
+                                            <button type="button" id="btDeleteHeading" class="btDelete" title="Delete this item">DELETE</button>
+                                            <button type="button" id="btResetHeading" class="btReset" title="Reset changes made to this form">Reset</button>
+                                            <button type="button" id="btSaveHeading" class="btSave" title="Clear all form fields">Commit Changes</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table id="sectionTable" style="display: none;">
+                                <tbody>
+                                    <tr>
+                                        <td class="tbLeft">Parent Section</td>
+                                        <td><input type="text" id="sectionParentId" disabled="disabled" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbLeft">ID</td>
+                                        <td><input type="text" id="sectionId" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbLeft">Section Name</td>
+                                        <td><input type="text" id="sectionName" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tbLeft"><button type="button" id="btClearSection" class="btClear" title="Clear all form fields">Clear Form</button></td>
+                                        <td>
+                                            <button type="button" id="btDeleteSection" class="btDelete" title="Delete this item">DELETE</button>
+                                            <button type="button" id="btResetSection" class="btReset" title="Reset changes made to this form">Reset</button>
+                                            <button type="button" id="btSaveSection" class="btSave" title="Clear all form fields">Commit Changes</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scripts -->
+        <script src="js/jquery-3.5.1.js"></script>
+        <script src="js/jquery-ui.js"></script>
+        <script src="../jnav.js"></script>
+        <script src="js/navBuild.js"></script>
+        <script src="js/table.js"></script>
+        <script src="js/editor.js"></script>
+    </body>
+</html>

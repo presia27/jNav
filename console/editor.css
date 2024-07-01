@@ -1,0 +1,192 @@
+/*
+
+    ========}   jNav Edit Console   {========
+        jNav Edit Console 0.0.1
+        COPYRIGHT (C) 2024 PRESTON SIA (PRESIA27)
+        THIS SOFTWARE IS LICENSED UNDER THE APACHE LICENSE, VERSION 2.0
+        [https://www.apache.org/licenses/LICENSE-2.0]
+
+        This project utilizes:
+            jQuery 3.5.1, licensed under the MIT license
+            and Copyright JS Foundation and other contributors.
+            [https://jquery.com/]
+            [https://jquery.org/license]
+
+            jQuery UI v 1.11.4, under the MIT license and
+            Copyright 2015 jQuery Foundation and other contributors
+            [http://jqueryui.com]
+
+        Author: Preston Sia
+        Created: 2024-06-29
+        Last Updated: 2024-06-30
+
+*/
+
+/* Styling for controls */
+#controls {
+    background-color: blue;
+    height: 30px;
+}
+
+#controls ul {
+    list-style-type: none;
+}
+
+#controls li {
+    display: inline-block;
+    padding: 3px;
+}
+
+#controls button {
+    border: none;
+    outline: none;
+    background: none;
+    padding: 3px;
+    font-weight: bold;
+    color: white;
+}
+
+#controls button:hover {
+    color: grey;
+    cursor: pointer;
+}
+
+/* Editing Area */
+.flexArea {
+    display: flex;
+}
+
+/* Editor styling */
+.entryEditor {
+    border: 1px solid grey;
+    width: 75%;
+}
+
+.entryEditor table {
+    width: 85%;
+    text-align: end;
+    margin: auto;
+}
+
+.entryEditor tr, .entryEditor td {
+    margin: auto;
+    border: 1px solid grey;
+}
+
+.tbLeft {
+    width: 200px;
+}
+
+.entryEditor table input:not(.widthExclude) {
+    width: 97%;
+}
+
+.entryEditor table select {
+    width: 97%;
+}
+
+/* Styling for buttons */
+.btClear {
+    background-color: #e9e9ed;
+}
+
+.btDelete {
+    background-color: red;
+}
+
+.btReset {
+    background-color: #e9e9ed;
+}
+
+.btSave {
+    background-color: green;
+    color: white;
+}
+
+/* Styling for banners */
+#banner {
+    padding: 5px;
+    font-weight: bold;
+}
+
+#actionBanner {
+    font-weight: bold;
+    padding: 2px;
+}
+
+/* Navigation Styling */
+.navTree {
+    min-width: 192px;
+    min-height: 512px;
+    width: 25%;
+    max-height: 90%;
+    overflow: auto;
+    background-color: white;
+    padding: 4px;
+    border: 1px solid grey;
+}
+
+.navSectionWrap {
+    border-top: 3px solid #3f92d1;
+    border-left: 3px solid #6c6c6c;
+    padding: 4px;
+    margin-top: 2px;
+}
+
+.navSection {
+    padding: 2px;
+}
+
+.identText {
+    color: rgb(50, 50, 50);
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+    font-size: 12px;
+    border-left: 16px solid #3f92d1;
+    padding: 4px;
+}
+
+.heading1 {
+    font-size: 22px;
+}
+
+.heading2 {
+    font-size: 18px;
+}
+
+.heading1:hover, .heading2:hover {
+    cursor: pointer;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+
+    display: block;
+    padding: 4px;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+    background-color: #f8f8f8;
+    
+}
+/*
+a.link .linkTextWrap {
+    padding: 4px;
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+    background-color: rgb(248, 248, 248);
+}*/
+
+a.link .linkText {
+    margin-left: 4px;
+}
+
+a.link:hover, .heading1:hover, .heading2:hover {
+    color:#606060;
+}
+
+.active {
+    background-color: #ececec;
+    border-left: 4px solid blue;
+    font-weight: bold;
+}
