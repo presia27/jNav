@@ -190,3 +190,20 @@ a.link:hover, .heading1:hover, .heading2:hover {
     border-left: 4px solid blue;
     font-weight: bold;
 }
+
+/* ****STYLING OPTIONS FOR ENTRIES (AS SPECIFIED IN JSONDATA)**** */
+.bold {
+    font-weight: bold;
+}
+
+.ital {
+    font-style: italic;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+a.link div.indent {
+    margin-left: 12px;
+}

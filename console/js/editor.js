@@ -37,24 +37,6 @@ var clickedId;
 var changesSaved = true;
 
 
-// TABLE ACTION BUTTONS
-var btClearEntry = document.getElementById("btClearEntry");
-btClearEntry.addEventListener("click", clearEntry); // in table.js document
-
-var btClearHeading = document.getElementById("btClearHeading");
-btClearHeading.addEventListener("click", clearHeading); // in table.js document
-
-var btClearSection = document.getElementById("btClearSection");
-btClearSection.addEventListener("click", clearSection); // in table.js document
-
-var btResetEntry = document.getElementById("btResetEntry");
-var btResetHeading = document.getElementById("btResetHeading");
-var btResetSection = document.getElementById("btResetSection");
-btResetEntry.addEventListener("click", tableReset);
-btResetHeading.addEventListener("click", tableReset);
-btResetSection.addEventListener("click", tableReset);
-
-
 // ***BUILD INDEX (SET THINGS IN MOTION)***
 function loadData() {
     setParams(nav, navUrl);
@@ -144,9 +126,8 @@ function trackChange() {
             elm = this;
         }
 
-
-        if (clickedId != elm.id) {
-            clickedId = elm.id;
+        if (clickedId != elm.getAttribute("id")) {
+            clickedId = elm.getAttribute("id");
         }
 
         deselect();
@@ -234,13 +215,229 @@ window.addEventListener("load", loadData);
 
 
 /* ========================================================== */
+
+// TABLE ACTION BUTTONS (***Clear and Reset***)
+var btClearEntry = document.getElementById("btClearEntry");
+btClearEntry.addEventListener("click", clearEntry); // in table.js document
+
+var btClearHeading = document.getElementById("btClearHeading");
+btClearHeading.addEventListener("click", clearHeading); // in table.js document
+
+var btClearSection = document.getElementById("btClearSection");
+btClearSection.addEventListener("click", clearSection); // in table.js document
+
+var btResetEntry = document.getElementById("btResetEntry");
+var btResetHeading = document.getElementById("btResetHeading");
+var btResetSection = document.getElementById("btResetSection");
+btResetEntry.addEventListener("click", tableReset);
+btResetHeading.addEventListener("click", tableReset);
+btResetSection.addEventListener("click", tableReset);
+
+
 /* ***SAVE AND DELETE*** */
-// Clear form is in table.js, reset form is at the top of this script
 
 // SAVE entries
 var btSaveEntry = document.getElementById("btSaveEntry");
 btSaveEntry.addEventListener("click", saveEntry);
 
 function saveEntry() {
-    //var buildEntry = entryMod()
+    var entryData = jsonifyEntry(); // CONSTRUCT NEW JSONIFIED ENTRY
+
+    // **SPLICE NEW DATA INTO CURRENT LOCATION**
+    searchById(clickedId, jsonData, null, function(result, section) { // get actual object from jsonData
+        var isRoot;
+        if (section != null) {
+            isRoot = false;
+        } else {
+            isRoot = true;
+        }
+
+        spliceIndex(clickedId, isRoot, entryData); // SPLICE with new data
+    });
+
+    // update HTML on page to reflect SOME of the changes
+    var anchorElm = document.getElementById(clickedId);
+    var textElm = anchorElm.getElementsByClassName("linkText")[0];
+
+    textElm.innerHTML = entryData.title;
+    anchorElm.setAttribute("title", entryData.title);
+
+    textElm.className = "linkText"; // RESET class list
+    for (var i = 0; i < entryData.style.length; i++) { // Re-add classes to class list
+        textElm.classList.add(entryData.style[i]);
+    }
+    anchorElm.style.borderTop = "1px solid #ff5c1f"; // ADD indicator that the element was changed
+    anchorElm.style.borderBottom = "1px solid #ff5c1f"; // ADD indicator that the element was changed
+
+    // **UPDATE IDs (clickedId, anchorElm id)**
+    if (clickedId != entryData.id) {
+        clickedId = entryData.id;
+    }
+
+    anchorElm.setAttribute("id", entryData.id); // SET ID ON HTML ELEMENT
+
+
+    // update banner
+    banner.innerHTML = "NOW EDITING \"" + entryData.title + "\"";
+
+    changesSaved = true;
+    btSaveEntry.style.backgroundColor = "green";
 }
+
+// SAVE headings
+var btSaveHeading = document.getElementById("btSaveHeading");
+btSaveHeading.addEventListener("click", saveHeading);
+
+function saveHeading() {
+    var headingData = jsonifyHeading();
+
+    // **SPLICE NEW DATA INTO CURRENT LOCATION**
+    searchById(clickedId, jsonData, null, function(result, section) { // get actual object from jsonData
+        var isRoot;
+        if (section != null) {
+            isRoot = false;
+        } else {
+            isRoot = true;
+        }
+
+        spliceIndex(clickedId, isRoot, headingData); // SPLICE with new data
+    });
+
+    // update HTML on page to reflect SOME of the changes
+    var headElm = document.getElementById(clickedId);
+    headElm.innerHTML = headingData.value;
+    // RESET class list
+    headElm.classList.remove("heading1", "heading2", "heading3", "heading4"); // remove existing heading types
+    headElm.classList.add(headingData.type); // add current heading type
+    headElm.style.color = "#ff5c1f"; // ADD indicator that the element was changed
+
+    // **UPDATE IDs (clickedId, anchorElm id)**
+    if (clickedId != headingData.id) {
+        clickedId = headingData.id;
+    }
+
+    headElm.setAttribute("id", headingData.id); // SET ID ON HTML ELEMENT
+
+    // update banner
+    banner.innerHTML = "NOW EDITING \"" + headingData.title + "\"";
+
+    changesSaved = true;
+    btSaveHeading.style.backgroundColor = "green";
+}
+
+// SAVE sections
+var btSaveSection = document.getElementById("btSaveSection");
+btSaveSection.addEventListener("click", saveSection);
+
+function saveSection() {
+    var sectionData;
+    var currentData = [];
+    // **Copy current data, SPLICE DATA**
+    searchById(clickedId, jsonData, null, function(result, section) {
+        // **COPY ALL CURRENT DATA INTO currentData**
+        for (var i = 0; i < result.content.length; i++) {
+            currentData.push(result.content[i]);
+        }
+
+        sectionData = jsonifySection(currentData);
+
+        var isRoot;
+        if (section != null) {
+            isRoot = false;
+        } else {
+            isRoot = true;
+        }
+
+        spliceIndex(clickedId, isRoot, sectionData); // SPLICE with new data
+    });
+
+     // update HTML on page to reflect SOME of the changes
+     var sectionElm = document.getElementById(clickedId);
+     var sectionText = sectionElm.getElementsByClassName("identText")[0];
+     sectionText.innerHTML = sectionData.sectionName + " (" + sectionData.id + ")";
+     
+    // **UPDATE IDs (clickedId, anchorElm id)**
+    if (clickedId != sectionData.id) {
+        clickedId = sectionData.id;
+    }
+
+    sectionElm.setAttribute("id", sectionData.id);
+
+    // update banner
+    banner.innerHTML = "NOW EDITING \"" + sectionData.sectionName + "\"";
+
+    changesSaved = true;
+    btSaveSection.style.backgroundColor = "green";
+}
+
+/* ***DELETE FUNCTION*** */
+
+function deleteTool() {
+    var deletedType;
+    var deletedName;
+    
+    searchById(clickedId, jsonData, null, function(result, section) {
+        deletedType = result.type;
+
+        if (deletedType == "entry") {
+            deletedName = result.title;
+        } else if (deletedType == "heading1" || deletedType == "heading2" || deletedType == "heading3" || deletedType == "heading4") {
+            deletedName = result.value;
+        } else if (deletedType == "section") {
+            deletedName = result.sectionName;
+        }
+
+        var isRoot;
+        if (section != null) { // determine if the element is a root element, for the delete function
+            isRoot = false;
+        } else {
+            isRoot = true;
+        }
+
+        // First, confirm whether the user actually wants to delete the element
+        var confirmDelete = confirm("Are you sure you want to delete \"" + deletedName +"\"?");
+        if (confirmDelete == false) {
+            return false;
+        } else if (confirmDelete == true) {
+            deleteFromIndex(result.id, isRoot); // DELETE ELEMENT
+
+            // Display Action Banner
+            actionBanner.innerHTML = "Deleted \"" + deletedName + "\"";
+            actionBanner.style.display = "block";
+            actionBanner.style.backgroundColor = "#64ff96";
+
+            // Remove from interface
+            var elmRemove = document.getElementById(clickedId);
+            elmRemove.parentElement.removeChild(elmRemove); // DELETE FROM INTERFACE
+
+            // call function to clear entry table
+            if (deletedType == "entry") {
+                clearEntry();
+            } else if (deletedType == "heading1" || deletedType == "heading2" || deletedType == "heading3" || deletedType == "heading4") {
+                clearHeading();
+            } else if (deletedType == "section") {
+                clearSection();
+            }
+
+            entryTable.style.display = "none";
+            banner.style.backgroundColor = "white";
+            banner.innerHTML = "SELECT A TASK OR INDEX ENTRY TO BEGIN";
+
+            clickedId = undefined;
+
+            setTimeout(function() {actionBanner.style.display = "none"}, 3000);
+        }
+    });
+}
+
+// DELETE entries
+var btDeleteEntry = document.getElementById("btDeleteEntry");
+btDeleteEntry.addEventListener("click", deleteTool);
+
+// DELETE headings
+var btDeleteHeading = document.getElementById("btDeleteHeading");
+btDeleteHeading.addEventListener("click", deleteTool);
+
+// DELETE sections
+var btDeleteSection = document.getElementById("btDeleteSection");
+btDeleteSection.addEventListener("click", deleteTool);

@@ -108,14 +108,27 @@ function loadEntryTable(elm, parentElmId) {
     entryId.value = elm.id;
     entryTitle.value = elm.title;
     entryDescription.value = elm.description;
-    //FIXME - styling
+
+    // add style info
+    for (var i = 0; i < elm.style.length; i++) {
+        if (elm.style[i] == "bold") {
+            ckBold.checked = true;
+        } else if (elm.style[i] == "ital") {
+            ckItal.checked = true;
+        } else if (elm.style[i] == "underline") {
+            ckUnder.checked = true;
+        } else if (elm.style[i] == "indent") {
+            ckIndent.checked = true;
+        } // add else statement for other misc styling options later (put in text box)
+    }
+
     entryType.value = elm.linkType;
     entryUrl.value = elm.url;
     entryAction.value = elm.action;
 
     // Activate table banners
     banner.style.backgroundColor = "rgb(153, 204, 255)";
-    banner.innerHTML = "NOW EDITING ENTRY \"" + elm.title + "\"";
+    banner.innerHTML = "NOW EDITING \"" + elm.title + "\"";
 
     // Listen for changes in the table
     $("#entryTable > tbody > tr > td > input, #entryTable > tbody > tr > td > select").on("change input", function() {
@@ -142,7 +155,7 @@ function loadHeadingTable(elm, parentElmId) {
 
     // Activate table banners
     banner.style.backgroundColor = "rgb(153, 204, 255)";
-    banner.innerHTML = "NOW EDITING ENTRY \"" + elm.value + "\"";
+    banner.innerHTML = "NOW EDITING \"" + elm.value + "\"";
 
     // Listen for changes in the table
     $("#headingTable > tbody > tr > td > input, #headingTable > tbody > tr > td > select").on("change input", function() {
@@ -168,11 +181,56 @@ function loadSectionTable(elm, parentElmId) {
 
     // Activate table banners
     banner.style.backgroundColor = "rgb(153, 204, 255)";
-    banner.innerHTML = "NOW EDITING ENTRY \"" + elm.sectionName + "\"";
+    banner.innerHTML = "NOW EDITING \"" + elm.sectionName + "\"";
 
     // Listen for changes in the table
     $("#sectionTable > tbody > tr > td > input, #sectionTable > tbody > tr > td > select").on("change input", function() {
         changesSaved = false;
         document.getElementById("btSaveSection").style.backgroundColor = "orange";
     })
+}
+
+/* ***BUILD INDEX ENTRIES*** */
+function jsonifyEntry() {
+    // parse styling
+    var style = [];
+    if (ckBold.checked == true) {
+        style.push("bold");
+    }
+    if (ckItal.checked == true) {
+        style.push("ital");
+    }
+    if (ckUnder.checked == true) {
+        style.push("underline");
+    }
+    if (ckIndent.checked == true) {
+        style.push("indent");
+    }
+
+    // RETURN ENTRY DATA JSONIFIED USING entryMod FUNCTION
+    return entryMod(
+        entryId.value,
+        entryTitle.value,
+        entryDescription.value,
+        style,
+        entryType.value,
+        entryUrl.value,
+        entryAction.value
+    );
+}
+
+function jsonifyHeading() {
+    return headingMod(
+        headingId.value,
+        headingStyle.value,
+        headingValue.value
+    );
+}
+
+function jsonifySection(currentData) {
+    return sectionMod(
+        sectionId.value,
+        sectionName.value,
+        currentData
+    );
 }

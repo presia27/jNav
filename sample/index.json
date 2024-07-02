@@ -47,7 +47,7 @@
                         "id": "nestedEntry1",
                         "title": "Example Entry 12345",
                         "description": "Short description",
-                        "style": [],
+                        "style": ["bold", "ital", "underline", "indent"],
                         "linkType": "",
                         "url": "",
                         "action": ""

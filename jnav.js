@@ -9,7 +9,7 @@
 
     Author: Preston Sia
     Created: 2024-06-25
-    Last Updated: 2024-06-29
+    Last Updated: 2024-07-01
 
 */
 
@@ -116,6 +116,11 @@ Add Section
 
 */
 function addToIndex(addData, sectionId, sitAbove) {
+    /* **ID CHECK** */
+    searchById(addData.id, jsonData, null, function(result, section) { // if anything comes back throw error. If the ID is unique, callback function will never run (see above).
+        throw new Error("ID is not unique!");
+    });
+
     if (sectionId != null) { // if the user wants the new block WITHIN a section
 
         searchById(sectionId, jsonData, null, function(result, section) { // get section
@@ -159,7 +164,7 @@ function addToIndex(addData, sectionId, sitAbove) {
 
 Splice/Delete Section
 set isRoot to true if deleting top level/root index entries (usually whole sections)
-replaceData used to splice in new data; omit to simply delete
+replaceData used to splice in new data; omit (set to null) to simply delete
 
 */
 
@@ -204,50 +209,37 @@ function deleteFromIndex(elementId, isRoot) {
 
 
 /* ******CREATING ELEMENTS****** */
-function sectionMod(id, name) {
-    /* **ID CHECK** */
-    searchById(id, jsonData, null, function(result, section) { // if anything comes back throw error. If the ID is unique, callback function will never run (see above).
-        throw new Error("ID is not unique!");
-    });
-
-
+function sectionMod(id, name, contents) {
     var builder = {};
 
     builder.type = "section";
     builder.id = id;
     builder.sectionName = name;
-    builder.content = [];
+    if (contents == null || contents == undefined || contents == "") {
+        builder.content = [];
+    } else {
+        builder.content = contents;
+    }
 
     return builder;
 }
 
-function headingMod(id, headLevel, value) {
-    /* **ID CHECK** */
-    searchById(id, jsonData, null, function(result, section) { // if anything comes back throw error. If the ID is unique, callback function will never run (see above).
-        throw new Error("ID is not unique!");
-    });
-
-    if (typeof headLevel !== "number") {
-        throw new TypeError("Heading level must be an integer");
+function headingMod(id, headType, value) {
+    if (headType != "heading1" && headType != "heading2" && headType != "heading3" && headType != "heading4") {
+        throw new Error("Invalid Heading Type");
     }
 
 
     var builder = {};
 
-    builder.type = "heading" + headLevel;
+    builder.type = headType;
     builder.id = id;
     builder.value = value;
 
     return builder;
 }
 
-function entryMod(id, title, description, style, linkType, url, action) {
-    /* **ID CHECK** */
-    searchById(id, jsonData, null, function(result, section) { // if anything comes back throw error. If the ID is unique, callback function will never run (see above).
-        throw new Error("ID is not unique!");
-    });
-
-    
+function entryMod(id, title, description, style, linkType, url, action) {    
     var builder = {};
 
     builder.type = "entry";

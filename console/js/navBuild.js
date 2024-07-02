@@ -147,6 +147,15 @@ function buildEntry(elm) {
     entryDiv.classList.add("linkText");
     entryDiv.innerText = elm.title;
 
+    // ADD STYLING
+    // I don't want an error or omission to break everything.
+    // Styling isn't essential, so if it's improperly formatted, styling can be skipped.
+    if (elm.style.constructor === Array) {
+        for (var i = 0; i < elm.style.length; i++) {
+            entryDiv.classList.add(elm.style[i]);
+        }
+    }
+
     entryAnchor.appendChild(entryDiv);
 
     return entryAnchor;
