@@ -1,6 +1,6 @@
 /*
 
-jNav Edit Console 0.0.1
+        jNav Edit Console 0.7.0
         COPYRIGHT (C) 2024 PRESTON SIA (PRESIA27)
         THIS SOFTWARE IS LICENSED UNDER THE APACHE LICENSE, VERSION 2.0
         [https://www.apache.org/licenses/LICENSE-2.0]
@@ -17,7 +17,7 @@ jNav Edit Console 0.0.1
 
         Author: Preston Sia
         Created: 2024-06-30
-        Last Updated: 2024-06-30
+        Last Updated: 2024-07-02
 
 */
 

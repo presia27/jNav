@@ -1,7 +1,7 @@
 /*
 
     ========}   jNav Edit Console   {========
-        jNav Edit Console 0.0.1
+        jNav Edit Console 0.7.0
         COPYRIGHT (C) 2024 PRESTON SIA (PRESIA27)
         THIS SOFTWARE IS LICENSED UNDER THE APACHE LICENSE, VERSION 2.0
         [https://www.apache.org/licenses/LICENSE-2.0]
@@ -18,7 +18,7 @@
 
         Author: Preston Sia
         Created: 2024-06-29
-        Last Updated: 2024-06-30
+        Last Updated: 2024-07-02
 
 */
 
@@ -189,6 +189,36 @@ a.link:hover, .heading1:hover, .heading2:hover {
     background-color: #ececec;
     border-left: 4px solid blue;
     font-weight: bold;
+}
+
+/* For edit tools (e.g. embed code, generate file) */
+#codeSpace {
+    width: 90%;
+    height: 40%;
+}
+
+/* Download Box */
+#downloadBoxWrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: rgba(30, 30, 30, 0.5);
+}
+
+#downloadBox {
+    padding: 16px;
+    width: 60%;
+    max-height: 60%;
+    margin: 8% auto;
+    overflow: scroll;
+    background-color: #e0e0e0;
+    border-color: #f8f8f8;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 4px;
 }
 
 /* ****STYLING OPTIONS FOR ENTRIES (AS SPECIFIED IN JSONDATA)**** */

@@ -2,14 +2,14 @@
 
 ========}    J N A V    {========
 
-    jNav Libary Beta version 0.1.1
+    jNav Libary Beta version 0.7.0
     COPYRIGHT (C) 2024 PRESTON SIA (PRESIA27)
     THIS SOFTWARE IS LICENSED UNDER THE APACHE LICENSE, VERSION 2.0
     [https://www.apache.org/licenses/LICENSE-2.0]
 
     Author: Preston Sia
     Created: 2024-06-25
-    Last Updated: 2024-07-01
+    Last Updated: 2024-07-02
 
 */
 
@@ -252,4 +252,20 @@ function entryMod(id, title, description, style, linkType, url, action) {
     builder.action = action;
 
     return builder;
+}
+
+function randomId() { // create a random 8-digit id
+    var idGen = Math.floor(Math.random() * 100000000);
+    var isUnique = true;
+    searchById(idGen, jsonData, null, function(result, section) { // check if ID is taken (it shouldn't, but just in case)
+        if (result.id == idGen) {
+            isUnique = false;
+        }
+    });
+
+    if(isUnique == true) {
+        return idGen;
+    } else {
+        return randomId(); // try again if it's not unique
+    }
 }

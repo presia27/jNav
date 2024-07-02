@@ -2,7 +2,7 @@
 <!--
 
     ========}   jNav Edit Console   {========
-        jNav Edit Console 0.0.1
+        jNav Edit Console 0.7.0
         COPYRIGHT (C) 2024 PRESTON SIA (PRESIA27)
         THIS SOFTWARE IS LICENSED UNDER THE APACHE LICENSE, VERSION 2.0
         [https://www.apache.org/licenses/LICENSE-2.0]
@@ -19,7 +19,7 @@
 
         Author: Preston Sia
         Created: 2024-06-29
-        Last Updated: 2024-06-30
+        Last Updated: 2024-07-02
 
 -->
 <html lang="en">
@@ -230,8 +230,27 @@
                                 </tbody>
                             </table>
 
+                            <p>When finished making changes, click <strong>"Commit Changes"</strong>. When ready to apply changes to the database, click <strong>"Generate File"</strong> and upload the file to the server.</p>
+                            <p>Changes will only be reflected during this browser session</p>
                         </form>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Download Box -->
+        <section>
+            <div id="downloadBoxWrapper" style="display: none;">
+                <div id="downloadBox">
+                    <h3>The Database File Is Ready</h3>
+                    <p>Click the link below to download the index file. If the download doesn't work, 
+                    copy and paste the code below into a text editor, and save the file as "navigation.json" before uploading it to the server.
+                    If using Internet Explorer, please copy the text below into a text editor and save the file as "navigation.json" instead of using the link.</p>
+                    <textarea id="codeSpace" name="codeSpace" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea>
+                    <br /> <br />
+                    <a download="" href="" id="downloadLink">Click here to download the index file</a>
+                    <br /><br /><br />
+                    <button type="button" id="closeDownload">Close dialog</button>
                 </div>
             </div>
         </section>

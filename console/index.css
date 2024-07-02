@@ -1,3 +1,27 @@
+/*
+
+    ========}   jNav Edit Console   {========
+        jNav Edit Console 0.7.0
+        COPYRIGHT (C) 2024 PRESTON SIA (PRESIA27)
+        THIS SOFTWARE IS LICENSED UNDER THE APACHE LICENSE, VERSION 2.0
+        [https://www.apache.org/licenses/LICENSE-2.0]
+
+        This project utilizes:
+            jQuery 3.5.1, licensed under the MIT license
+            and Copyright JS Foundation and other contributors.
+            [https://jquery.com/]
+            [https://jquery.org/license]
+
+            jQuery UI v 1.11.4, under the MIT license and
+            Copyright 2015 jQuery Foundation and other contributors
+            [http://jqueryui.com]
+
+        Author: Preston Sia
+        Created: 2024-06-29
+        Last Updated: 2024-07-02
+
+*/
+
 body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;

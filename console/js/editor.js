@@ -1,6 +1,6 @@
 /*
 
-jNav Edit Console 0.0.1
+        jNav Edit Console 0.7.0
         COPYRIGHT (C) 2024 PRESTON SIA (PRESIA27)
         THIS SOFTWARE IS LICENSED UNDER THE APACHE LICENSE, VERSION 2.0
         [https://www.apache.org/licenses/LICENSE-2.0]
@@ -17,7 +17,7 @@ jNav Edit Console 0.0.1
 
         Author: Preston Sia
         Created: 2024-06-30
-        Last Updated: 2024-07-01
+        Last Updated: 2024-07-02
 
 */
 
@@ -420,6 +420,8 @@ function deleteTool() {
             }
 
             entryTable.style.display = "none";
+            headingTable.style.display = "none";
+            sectionTable.style.display =  "none";
             banner.style.backgroundColor = "white";
             banner.innerHTML = "SELECT A TASK OR INDEX ENTRY TO BEGIN";
 
@@ -441,3 +443,141 @@ btDeleteHeading.addEventListener("click", deleteTool);
 // DELETE sections
 var btDeleteSection = document.getElementById("btDeleteSection");
 btDeleteSection.addEventListener("click", deleteTool);
+
+
+// ***ADD TO INDEX***
+// Determine where to put it, depending on what is selected
+function findInsertPoint(callabck) {
+    var sectionId;
+    var sitAbove;
+    if (clickedId == "" || clickedId == undefined || clickedId == null) { // if nothing is selected, place at bottom
+        sectionId = null;
+        sitAbove = null;
+    } else {
+        searchById(clickedId, jsonData, null, function(result, section) {
+            if (result.type == "section") { // if a section is selected, place at bottom of section
+                sectionId = result.id;
+                sitAbove = null;
+            } else { // place at the bottom of section containing the selected element
+                sectionId = section;
+                sitAbove = null;
+            }
+        });
+    }
+    callabck(sectionId, sitAbove); // send variables to callback function
+}
+
+// Add new entry
+function addNewEntry() {
+    findInsertPoint(function(sectionId, sitAbove) { // determine where to place first
+        // generate data
+        var newId = "entry" + randomId();
+        var addData = entryMod(newId, "New Entry", "", [], "notSet", "", "notSet");
+        addToIndex(addData, sectionId, sitAbove); // ADD
+        searchById(newId, jsonData, null, function(result, section) { // Get the recently created entry
+            var newNode = buildEntry(result);
+            var parentElm;
+            if (section == null) {
+                parentElm = nav;
+            } else {
+                parentElm = document.getElementById(section);
+            }
+            
+            newNode.addEventListener("click", trackChange);
+            parentElm.appendChild(newNode);
+        });
+    });
+}
+
+// Add new heading
+function addNewHeading() {
+    findInsertPoint(function(sectionId, sitAbove) {
+        var newId = "heading" + randomId();
+        var addData = headingMod(newId, "heading1", "New Heading");
+        addToIndex(addData, sectionId, sitAbove); // ADD
+        searchById(newId, jsonData, null, function(result, section) {
+            var newNode = buildHeading(result);
+            var parentElm;
+            if (section == null) {
+                parentElm = nav;
+            } else {
+                parentElm = document.getElementById(section);
+            }
+            
+            newNode.addEventListener("click", trackChange);
+            parentElm.appendChild(newNode);
+        });
+    });
+}
+
+// Add new section
+function addNewSection() {
+    findInsertPoint(function(sectionId, sitAbove) {
+        var newId = "section" + randomId();
+        var addData = sectionMod(newId, newId, null);
+        addToIndex(addData, sectionId, sitAbove);
+        searchById(newId, jsonData, null, function(result, section) {
+            var newNode = buildSection(result);
+            var parentElm;
+            if (section == null) {
+                parentElm = nav;
+            } else {
+                parentElm = document.getElementById(section);
+            }
+
+            newNode.getElementsByClassName("identText")[0].addEventListener("click", trackChange);
+            parentElm.appendChild(newNode);
+        });
+    })
+}
+
+
+// **CONTROL BUTTONS**
+
+var btnAddNewEntry = document.getElementById("addNewEntry");
+var btnAddNewHeading = document.getElementById("addNewHeading");
+var btnAddNewSection = document.getElementById("addNewSection");
+var btnConvertEmbedCode = document.getElementById("convertEmbedCode");
+var btnReturnHome = document.getElementById("returnHome");
+var btnGenerateFile = document.getElementById("generateFile");
+
+btnAddNewEntry.addEventListener("click", addNewEntry);
+btnAddNewHeading.addEventListener("click", addNewHeading);
+btnAddNewSection.addEventListener("click", addNewSection);
+
+// Open embed code converter
+btnConvertEmbedCode.addEventListener("click", function() {
+    window.open("tools/embedCode.html", "_blank", "width=800 height=600");
+});
+
+btnReturnHome.addEventListener("click", function() {
+    window.location = "index.html";
+});
+
+/* ****DOWNLOAD BOX**** */
+var btnGenerateFile = document.getElementById("generateFile");
+btnGenerateFile.addEventListener("click", generateFile);
+
+
+function generateFile() {
+    var textPackage = JSON.stringify(jsonData);
+    var b64string = window.btoa(textPackage); // convert to base64
+
+    var downloadBoxWrapper = document.getElementById("downloadBoxWrapper");
+    var codeSpace = document.getElementById("codeSpace")
+    var downloadLink = document.getElementById("downloadLink");
+    var btnCloseDownload = document.getElementById("closeDownload");
+
+    downloadLink.setAttribute("download", "navigation.txt"); //FIXME - temporary file name
+    downloadLink.setAttribute("href", "data:application/octet-stream;charset=utf-8;base64," + b64string);
+    codeSpace.value = atob(b64string);
+
+    downloadBoxWrapper.style.display = "block"; // show download box
+    // Reset box on close
+    btnCloseDownload.addEventListener("click", function() {
+        downloadLink.setAttribute("download", "");
+        downloadLink.setAttribute("href", "");
+        codeSpace.value = "";
+        downloadBoxWrapper.style.display = "none";
+    });
+}
