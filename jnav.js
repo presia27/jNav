@@ -2,7 +2,7 @@
 
 ========}    J N A V    {========
 
-    jNav Libary Beta version 0.7.0
+    jNav Libary Beta version 0.8.0
     COPYRIGHT (C) 2024 PRESTON SIA (PRESIA27)
     THIS SOFTWARE IS LICENSED UNDER THE APACHE LICENSE, VERSION 2.0
     [https://www.apache.org/licenses/LICENSE-2.0]

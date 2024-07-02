@@ -1,6 +1,6 @@
 /*
 
-        jNav Edit Console 0.7.0
+        jNav Edit Console 0.8.0
         COPYRIGHT (C) 2024 PRESTON SIA (PRESIA27)
         THIS SOFTWARE IS LICENSED UNDER THE APACHE LICENSE, VERSION 2.0
         [https://www.apache.org/licenses/LICENSE-2.0]
@@ -235,6 +235,40 @@ btResetSection.addEventListener("click", tableReset);
 
 
 /* ***SAVE AND DELETE*** */
+// ID CHECK
+function idCheck(testId) {
+    var isOk;
+    
+    // CHECK FOR UNIQUENESS
+    searchById(testId, jsonData, null, function(result, section) { // callback only runs if one was found
+        // Display Action Banner
+        actionBanner.innerHTML = "ERROR: ID ALREAY TAKEN";
+        actionBanner.style.display = "block";
+        actionBanner.style.backgroundColor = "red";
+        actionBanner.style.color = "white";
+        setTimeout(function() {actionBanner.style.display = "none"}, 3000);
+
+        isOk = false;
+    });
+
+    // CHECK FOR BAD CHARACTERS
+    var allowedChars = /[^A-Za-z0-9_-]/g;
+    if (allowedChars.test(testId) == true) {
+        actionBanner.innerHTML = "ERROR: INVALID CHARACTER - USE ONLY [A-Z], [a-z], [0-9], and \"-\" or \"-\"";
+        actionBanner.style.display = "block";
+        actionBanner.style.backgroundColor = "red";
+        actionBanner.style.color = "white";
+        setTimeout(function() {actionBanner.style.display = "none"}, 3000);
+
+        isOk = false;
+    }
+
+    if (isOk == false) {
+        return false;
+    } else {
+        return true;
+    }
+}
 
 // SAVE entries
 var btSaveEntry = document.getElementById("btSaveEntry");
@@ -242,6 +276,14 @@ btSaveEntry.addEventListener("click", saveEntry);
 
 function saveEntry() {
     var entryData = jsonifyEntry(); // CONSTRUCT NEW JSONIFIED ENTRY
+
+    // ID CHECK
+    if (entryData.id != clickedId) { // run if ID was changed
+        var isOkay = idCheck(entryData.id);
+        if (isOkay == false) {
+            return false; // if not unique, stop execution of function
+        }
+    }
 
     // **SPLICE NEW DATA INTO CURRENT LOCATION**
     searchById(clickedId, jsonData, null, function(result, section) { // get actual object from jsonData
@@ -291,6 +333,14 @@ btSaveHeading.addEventListener("click", saveHeading);
 function saveHeading() {
     var headingData = jsonifyHeading();
 
+    // ID CHECK
+    if (headingData.id != clickedId) { // run if ID was changed
+        var isOkay = idCheck(headingData.id);
+        if (isOkay == false) {
+            return false; // if not unique, stop execution of function
+        }
+    }
+
     // **SPLICE NEW DATA INTO CURRENT LOCATION**
     searchById(clickedId, jsonData, null, function(result, section) { // get actual object from jsonData
         var isRoot;
@@ -319,7 +369,7 @@ function saveHeading() {
     headElm.setAttribute("id", headingData.id); // SET ID ON HTML ELEMENT
 
     // update banner
-    banner.innerHTML = "NOW EDITING \"" + headingData.title + "\"";
+    banner.innerHTML = "NOW EDITING \"" + headingData.value + "\"";
 
     changesSaved = true;
     btSaveHeading.style.backgroundColor = "green";
@@ -332,6 +382,7 @@ btSaveSection.addEventListener("click", saveSection);
 function saveSection() {
     var sectionData;
     var currentData = [];
+    var idIsOkay;
     // **Copy current data, SPLICE DATA**
     searchById(clickedId, jsonData, null, function(result, section) {
         // **COPY ALL CURRENT DATA INTO currentData**
@@ -340,6 +391,15 @@ function saveSection() {
         }
 
         sectionData = jsonifySection(currentData);
+
+        // ID CHECK
+        if (sectionData.id != clickedId) { // run if ID was changed
+            var isOkay = idCheck(sectionData.id);
+            idIsOkay = isOkay; // need to re-evaluate outside of this callback
+            if (isOkay == false) {
+                return false; // if not unique, stop execution of function
+            }
+        }
 
         var isRoot;
         if (section != null) {
@@ -351,10 +411,17 @@ function saveSection() {
         spliceIndex(clickedId, isRoot, sectionData); // SPLICE with new data
     });
 
-     // update HTML on page to reflect SOME of the changes
-     var sectionElm = document.getElementById(clickedId);
-     var sectionText = sectionElm.getElementsByClassName("identText")[0];
-     sectionText.innerHTML = sectionData.sectionName + " (" + sectionData.id + ")";
+    if (idIsOkay == false) {
+        return false; // stop execution
+    }
+
+    // update HTML on page to reflect SOME of the changes
+    var sectionElm = document.getElementById(clickedId);
+    var sectionText = sectionElm.getElementsByClassName("identText")[0];
+    sectionText.innerHTML = sectionData.sectionName + " (" + sectionData.id + ")";
+
+    // add change indicator
+    sectionElm.style.borderLeft = "3px solid #ff5c1f";
      
     // **UPDATE IDs (clickedId, anchorElm id)**
     if (clickedId != sectionData.id) {
