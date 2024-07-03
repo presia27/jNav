@@ -1,5 +1,6 @@
 {
-    "jsonUrl": "../sample/index.json",
-    "defaultFileName": "index.json",
-    "formProcessor": null
+    "jsonUrl": "../sample/demo.json",
+    "defaultFileName": "demo.json",
+    "formProcessor": null,
+    "templateUrl": "template.json"
 }

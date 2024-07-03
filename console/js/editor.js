@@ -1,6 +1,6 @@
 /*
 
-        jNav Edit Console 0.8.0
+        jNav Edit Console 1.0.0
         COPYRIGHT (C) 2024 PRESTON SIA (PRESIA27)
         THIS SOFTWARE IS LICENSED UNDER THE APACHE LICENSE, VERSION 2.0
         [https://www.apache.org/licenses/LICENSE-2.0]
@@ -52,6 +52,15 @@ function preflight() {
 
             // SET PREFERENCES
             navUrl = prefData.jsonUrl;
+            // get url params
+            var urlSubstring = window.location.search.substring(1); 
+            var urlParams = urlSubstring.split("&");
+            for (var x = 0; x < urlParams.length; x++) { // determine whether to load template or not
+                if (urlParams[x] == "newDoc=true") {
+                    navUrl = prefData.templateUrl; // use template url instead of default json url
+                }
+            }
+            
             navFileName = prefData.defaultFileName;
             // change filename in generate file dialog
             for (var i = 0; i < document.getElementsByClassName("jsonName").length; i++) {

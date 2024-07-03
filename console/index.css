@@ -1,7 +1,7 @@
 /*
 
     ========}   jNav Edit Console   {========
-        jNav Edit Console 0.8.0
+        jNav Edit Console 1.0.0
         COPYRIGHT (C) 2024 PRESTON SIA (PRESIA27)
         THIS SOFTWARE IS LICENSED UNDER THE APACHE LICENSE, VERSION 2.0
         [https://www.apache.org/licenses/LICENSE-2.0]
@@ -51,4 +51,39 @@ body {
     margin: 0 auto;
     top: 80px;
     background-color: #f4f4f4;
+}
+
+/*  AAA-Card Navigation */
+.cardWrap {
+    margin-left: 92px;
+    margin-right: 92px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.aaaCardWrapper {
+    padding: 5px;
+}
+
+.aaaCardWrapper a {
+    text-decoration: none;
+}
+
+.aaaCard {
+    text-align: center;
+    color: blue;
+    padding: 12px;
+    min-width: 320px;
+    border: 2px solid #808080;
+    border-radius: 5px;
+}
+
+.aaaCard:hover {
+    color: #6a6aff;
+}
+
+.aaaCard .cardTitle {
+    font-size: 16px;
 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="256"
+   height="256"
+   viewBox="0 0 67.733332 67.733335"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="edit.svg">
+  <title
+     id="title32">Edit Button</title>
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="89.243209"
+     inkscape:cy="149.32938"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Edit Button</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-229.26665)">
+    <path
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke-width:3.00471783"
+       d="M 128 0 A 127.99999 127.99999 0 0 0 0 128 A 127.99999 127.99999 0 0 0 128 256 A 127.99999 127.99999 0 0 0 256 128 A 127.99999 127.99999 0 0 0 128 0 z M 129.28516 32.857422 A 95.142856 95.142856 0 0 1 224.42773 128 A 95.142856 95.142856 0 0 1 129.28516 223.14258 A 95.142856 95.142856 0 0 1 34.142578 128 A 95.142856 95.142856 0 0 1 129.28516 32.857422 z "
+       transform="matrix(0.26458333,0,0,0.26458333,0,229.26665)"
+       id="path10" />
+    <path
+       id="path12"
+       d="m 51.110459,254.8291 -3.077566,3.07757 c -0.313765,0.31376 -0.821131,0.31376 -1.134896,0 l -7.410192,-7.4102 c -0.313766,-0.31376 -0.313766,-0.82113 0,-1.13489 l 3.077566,-3.07757 c 1.248383,-1.24838 3.277843,-1.24838 4.532901,0 l 4.012187,4.01219 c 1.255061,1.24838 1.255061,3.27784 0,4.5329 z m -14.266292,-2.82389 -17.530785,17.53079 -1.415279,8.11116 c -0.1936,1.09483 0.761047,2.0428 1.855887,1.85589 l 8.111159,-1.42196 17.530783,-17.53079 c 0.313765,-0.31376 0.313765,-0.82113 0,-1.13489 l -7.410194,-7.4102 c -0.320441,-0.31376 -0.827806,-0.31376 -1.141571,0 z M 26.15613,268.03393 c -0.367171,-0.36716 -0.367171,-0.95465 0,-1.32181 L 36.436941,256.4313 c 0.367171,-0.36717 0.954646,-0.36717 1.321818,0 0.367172,0.36717 0.367172,0.95465 0,1.32182 l -10.28081,10.28081 c -0.367172,0.36717 -0.954646,0.36717 -1.321819,0 z m -2.409982,5.61439 h 3.204409 v 2.42334 l -4.305924,0.75437 -2.076189,-2.07619 0.75437,-4.30593 h 2.423334 z"
+       inkscape:connector-curvature="0"
+       style="stroke-width:0.06675851" />
+  </g>
+</svg>
