@@ -245,9 +245,13 @@
                 <div id="downloadBox">
                     <h3>The Database File Is Ready</h3>
                     <p>Click the link below to download the index file. If the download doesn't work, 
-                    copy and paste the code below into a text editor, and save the file as "navigation.json" before uploading it to the server.
-                    If using Internet Explorer, please copy the text below into a text editor and save the file as "navigation.json" instead of using the link.</p>
-                    <textarea id="codeSpace" name="codeSpace" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea>
+                    copy and paste the code below into a text editor, and save the file as "<i class="jsonName">navigation.json</i>" before uploading it to the server.
+                    If using Internet Explorer, please copy the text below into a text editor and save the file as "<i class="jsonName">navigation.json</i>" instead of using the link.</p>
+                    <form id="submitCodeForm" method="POST" action="">
+                        <textarea id="codeSpace" name="codeSpace" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea>
+                        <br />
+                        <button type="submit" id="btUploadCode" style="display: none;">SUBMIT CHANGES</button>
+                    </form>
                     <br /> <br />
                     <a download="" href="" id="downloadLink">Click here to download the index file</a>
                     <br /><br /><br />

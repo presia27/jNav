@@ -197,6 +197,12 @@ a.link:hover, .heading1:hover, .heading2:hover {
     height: 40%;
 }
 
+#btUploadCode {
+    background-color: green;
+    color: white;
+    font-weight: bold;
+}
+
 /* Download Box */
 #downloadBoxWrapper {
     position: fixed;

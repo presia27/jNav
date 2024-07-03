@@ -21,8 +21,10 @@
 
 */
 
-// TEMPORARY index url
-var navUrl = "../sample/index.json";
+// TEMPORARY index url - for testing only, refer to preferences.json for current location
+//var navUrl = "../sample/index.json";
+var navUrl = "";
+var navFileName = "navigation.txt"; // default value, changed if specified in preferences.json
 
 // Set variables for page elements
 var nav = document.getElementById("navTree1"); // Index navigation
@@ -36,6 +38,40 @@ var sectionTable = document.getElementById("sectionTable"); // Editing table use
 var clickedId;
 var changesSaved = true;
 
+/*===========================================================*/
+
+// ***LOAD PREFERENCES - PREFLIGHT CHECK***
+function preflight() {
+    var prefUrl = "preferences.json";
+    var prefData;
+
+    var prefRequest = new XMLHttpRequest();
+    prefRequest.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            prefData = JSON.parse(this.responseText);
+
+            // SET PREFERENCES
+            navUrl = prefData.jsonUrl;
+            navFileName = prefData.defaultFileName;
+            // change filename in generate file dialog
+            for (var i = 0; i < document.getElementsByClassName("jsonName").length; i++) {
+                document.getElementsByClassName("jsonName")[i].innerHTML = navFileName;
+            }
+            // enable form submission in Generate File dialog
+            if (prefData.formProcessor != "null" && prefData.formProcessor != undefined && prefData.formProcessor != "") {
+                document.getElementById("submitCodeForm").setAttribute("action", prefData.formProcessor);
+                document.getElementById("btUploadCode").style.display = "initial";
+            }
+
+            // NEXT STEPS - BUILD INDEX
+            loadData();
+        }
+    };
+
+    prefRequest.open("GET", prefUrl, true);
+    prefRequest.setRequestHeader("Cache-Control", "no-cache, must-revalidate"); // Prevent the browser from caching the file
+    prefRequest.send();
+}
 
 // ***BUILD INDEX (SET THINGS IN MOTION)***
 function loadData() {
@@ -211,7 +247,7 @@ function postParser() {
 }
 
 // Call function on page load
-window.addEventListener("load", loadData);
+window.addEventListener("load", preflight);
 
 
 /* ========================================================== */
@@ -627,6 +663,10 @@ btnGenerateFile.addEventListener("click", generateFile);
 
 
 function generateFile() {
+    // Record date and time
+    var currentDate = new Date();
+    jsonData[0].lastModified = currentDate.toISOString();
+
     var textPackage = JSON.stringify(jsonData);
     var b64string = window.btoa(textPackage); // convert to base64
 
@@ -635,7 +675,7 @@ function generateFile() {
     var downloadLink = document.getElementById("downloadLink");
     var btnCloseDownload = document.getElementById("closeDownload");
 
-    downloadLink.setAttribute("download", "navigation.txt"); //FIXME - temporary file name
+    downloadLink.setAttribute("download", navFileName); //FIXME - temporary file name
     downloadLink.setAttribute("href", "data:application/octet-stream;charset=utf-8;base64," + b64string);
     codeSpace.value = atob(b64string);
 
