@@ -5,6 +5,7 @@ This project aims to define the structure and create tools for storing links in 
 The format consists more or less of a giant, nested array, with sections, headings and entries. This format is designed to be extensible, with each block of code following a similar arrangement of curly braces, and differentiated by a "type."
 
 Here's an example of the format:
+
     [
         {
             "type": "section",
